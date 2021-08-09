@@ -90,7 +90,8 @@ export function HomePage() {
                         </div>
                         <div>
                         <h4><Link to={`/movie/${e.id}`}><strong>Name : </strong>{e.title}</Link></h4>
-                        <p><strong> Rating : </strong>{e.rating}</p>
+                            <p><strong> Rating : </strong>{e.rating}</p>
+                            <p><strong> Release : </strong>{e.date}</p>
                         <p><strong>Description : </strong>{e.description}</p>
 
                         <p><strong>Cast : </strong><br/>{e.cast.map((et) => {
@@ -109,7 +110,8 @@ export function HomePage() {
                         </div>
                         <div>
                         <h4><Link to={`/movie/${e.id}`}><strong>Name : </strong>{e.title}</Link></h4>
-                        <p><strong> Rating : </strong>{e.rating}</p>
+                                    <p><strong> Rating : </strong>{e.rating}</p>
+                                    <p><strong> Release : </strong>{e.date}</p>
                         <p><strong>Description : </strong>{e.description}</p>
 
                         <p><strong>Cast : </strong><br/>{e.cast.map((et) => {
