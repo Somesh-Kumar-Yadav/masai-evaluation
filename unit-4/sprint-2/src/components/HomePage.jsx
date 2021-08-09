@@ -2,25 +2,21 @@ import React from "react"
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getMoviesData } from "../redux/actions";
-import { Card, Container, Movies, Nav, Show } from "../styled-compoents/Styled-Components"
+import { Card, Container, Detail, Movies, Nav, Show } from "../styled-compoents/Styled-Components"
 export function HomePage() {
     const [search, setSearch] = React.useState("");
-    const [movie, setMovie] = React.useState("");
+    const [movie, setMovie] = React.useState([]);
     const dispatch = useDispatch();
     React.useEffect(() => {
      dispatch(getMoviesData());   
     },[dispatch])
     const data = useSelector((state) => state.movies);
     console.log(data);
-    if (movie === "") {
-        setMovie(data[0]);
-    }
-    console.log(movie)
     const handleSearch = () => {
         const searchData = data.filter((e) => {
-            return e.includes(search);
+            return e.title.toLowerCase().includes(search.toLowerCase());
         })
-        console.log(searchData);
+        setMovie([searchData[0]]);
             setSearch("");
     }
     return <>
@@ -57,7 +53,23 @@ export function HomePage() {
             </div>
             <div>
                 <Show>
+                    {movie[0]? movie.map((e) => {
+                            return <Detail>
+                               <div>
+                        <img src={e.url} alt=""/>
+                        </div>
+                        <div>
+                        <h4><strong>Name : </strong>{e.title}</h4>
+                        <p><strong> Rating : </strong>{e.rating}</p>
+                        <p><strong>Description : </strong>{e.description}</p>
 
+                        <p><strong>Cast : </strong><br/>{e.cast.map((et) => {
+                            return <span>{ et}<br/> </span>
+                        })}</p>
+                        </div>     
+                            </Detail>
+                        }):<h5>Searched Movies is shown here</h5>
+                    }
                 </Show>
             </div>
         </Movies>

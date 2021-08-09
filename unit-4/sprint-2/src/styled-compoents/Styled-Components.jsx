@@ -62,7 +62,7 @@ export const Show = styled.div`
 `
 export const Card = styled.div`
 display: flex;
-width: 50%;
+width: 90%;
 margin: 20px;
 border: 1px solid black;
 justify-content: center;
@@ -70,6 +70,22 @@ align-items: center;
 padding: 5px;
 border-radius: 20px;
 height: 200px;
+&>div>img{
+width: 100px;
+height: 130px;
+margin: 0 20px;
+}
+`
+export const Detail = styled.div`
+display: flex;
+width: 30vw;
+flex-direction: column;
+margin: 20px;
+border: 1px solid black;
+justify-content: center;
+align-items: center;
+padding: 5px;
+border-radius: 20px;
 &>div>img{
 width: 100px;
 height: 130px;
