@@ -1,6 +1,6 @@
 import React from "react"
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { CompleteDetail } from "../styled-compoents/Styled-Components";
 export function MovieDetail() {
     const param = useParams();
@@ -12,6 +12,9 @@ export function MovieDetail() {
     })
     console.log(mov[0])
     return <div style={{display:"flex",justifyContent:"center",flexDirection:'column',alignItems:"center"}}>
+        <Link to="/">
+        Back to Home
+        </Link>
         {
             mov.map((e) => {
                 return <CompleteDetail>
@@ -27,7 +30,7 @@ export function MovieDetail() {
                         <p><strong>Writer : </strong>{e.writer}</p>
 
                         <p><strong>Cast : </strong><br/>{e.cast.map((et) => {
-                            return <span>{ et}<br/> </span>
+                            return <span><Link to={"/actor/" + et}>{ et}</Link><br/> </span>
                         })}</p>
                         </div>
                 </CompleteDetail>
