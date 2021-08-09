@@ -7,6 +7,8 @@ import { Card, Container, Detail, Movies, Nav, Show } from "../styled-compoents/
 export function HomePage() {
     const [search, setSearch] = React.useState("");
     const [movie, setMovie] = React.useState([]);
+    const [value, setValue] = React.useState(true);
+    const [list, setList] = React.useState([]);
     const dispatch = useDispatch();
     React.useEffect(() => {
         dispatch(getMoviesData());
@@ -21,6 +23,29 @@ export function HomePage() {
         setMovie([searchData[0]]);
             setSearch("");
     }
+    const handleSortUp = () => {
+        const up = data.sort((a, b) => {
+            return Number(b.date) - Number(a.date);
+        })
+        setList([...up])
+        setValue(false);
+    }
+    const handleSortDown = () => {
+        const down = data.sort((a, b) => {
+            return Number(a.date) - Number(b.date);
+        })
+        setList([...down])
+        setValue(false);
+    }
+    const handlePage = (num) => {
+        console.log(num);
+        const shortList = data.filter((e) => {
+            return (e.id >= 10*num-9 && e.id <= num * 10);
+        })
+        console.log(shortList)
+        setList([...shortList])
+        setValue(false);
+    }
     return <>
         <Nav>
             <input type="text" value={search} placeholder="Search Movies" onChange={(e) => {
@@ -30,13 +55,35 @@ export function HomePage() {
         </Nav>
         <Container>
             <div>
-                <button>Sort by latest</button>
-                <button>Sort by oldest</button>
+                <button onClick={handleSortUp}>Sort by latest</button>
+                <button onClick={handleSortDown}>Sort by oldest</button>
+            </div>
+        </Container>
+        <Container>
+            <div>
+                <button onClick={()=>{handlePage(1)}}>Previous</button>
+                <button onClick={()=>{handlePage(2)}}>Next</button>
             </div>
         </Container>
         <Movies>
             <div>
-                {data.map((e) => {
+                {value?data.map((e) => {
+                    return <Card key={e.id}>
+                        <div>
+                        <img src={e.url} alt=""/>
+                        </div>
+                        <div>
+                        <h4><Link to={`/movie/${e.id}`}><strong>Name : </strong>{e.title}</Link></h4>
+                        <p><strong> Rating : </strong>{e.rating}</p>
+                        <p><strong> Release : </strong>{e.date}</p>
+                        <p><strong>Description : </strong>{e.description}</p>
+
+                        <p><strong>Cast : </strong><br/>{e.cast.map((et) => {
+                            return <span><Link to={"/actor/" + et}>{ et}</Link><br/> </span>
+                        })}</p>
+                        </div>
+                    </Card>         
+                }):list.map((e) => {
                     return <Card key={e.id}>
                         <div>
                         <img src={e.url} alt=""/>
@@ -75,5 +122,6 @@ export function HomePage() {
                 </Show>
             </div>
         </Movies>
+        
     </>
 }
