@@ -117,7 +117,8 @@ export function HomePage() {
                         })}</p>
                         </div>     
                             </Detail>
-                        }):<h5>Searched Movies is shown here</h5>
+                    }) :<div style={{padding:"5px",border:"1px solid black",borderRadius:"10px",marginRight:"10px"}}><h5>Searched Movies is shown here</h5>
+                            </div>
                     }
                 </Show>
             </div>
