@@ -1,6 +1,7 @@
 import React from "react"
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { getMoviesData } from "../redux/actions";
 import { Card, Container, Detail, Movies, Nav, Show } from "../styled-compoents/Styled-Components"
 export function HomePage() {
@@ -10,7 +11,7 @@ export function HomePage() {
     React.useEffect(() => {
      dispatch(getMoviesData());   
     },[dispatch])
-    const data = useSelector((state) => state.movies);
+    let data = useSelector((state) => state.movies);
     console.log(data);
     const handleSearch = () => {
         const searchData = data.filter((e) => {
@@ -35,12 +36,12 @@ export function HomePage() {
         <Movies>
             <div>
                 {data.map((e) => {
-                    return <Card>
+                    return <Card key={e.id}>
                         <div>
                         <img src={e.url} alt=""/>
                         </div>
                         <div>
-                        <h4><strong>Name : </strong>{e.title}</h4>
+                        <h4><Link to={`/movie/${e.id}`}><strong>Name : </strong>{e.title}</Link></h4>
                         <p><strong> Rating : </strong>{e.rating}</p>
                         <p><strong>Description : </strong>{e.description}</p>
 
@@ -48,7 +49,7 @@ export function HomePage() {
                             return <span>{ et}<br/> </span>
                         })}</p>
                         </div>
-                    </Card>
+                    </Card>         
                 })}
             </div>
             <div>
@@ -59,7 +60,7 @@ export function HomePage() {
                         <img src={e.url} alt=""/>
                         </div>
                         <div>
-                        <h4><strong>Name : </strong>{e.title}</h4>
+                        <h4><Link to={`/movie/${e.id}`}><strong>Name : </strong>{e.title}</Link></h4>
                         <p><strong> Rating : </strong>{e.rating}</p>
                         <p><strong>Description : </strong>{e.description}</p>
 

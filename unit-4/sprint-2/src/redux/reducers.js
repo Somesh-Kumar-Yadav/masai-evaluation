@@ -6,6 +6,7 @@ import {
 
 const initState = {
 	movies: [],
+	actors: [],
 };
 export const reducers = (state = initState, { type, payload }) => {
 	switch (type) {

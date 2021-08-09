@@ -90,5 +90,27 @@ border-radius: 20px;
 width: 100px;
 height: 130px;
 margin: 0 20px;
+}`
+
+export const CompleteDetail = styled.div`
+display: flex;
+width: 100vw;
+flex-direction: column;
+margin: 20px;
+justify-content: center;
+align-items: center;
+padding: 5px;
+border-radius: 20px;
+&>div>img{
+width: 200px;
+height: 250px;
+margin: 0 20px;
 }
+&>div:nth-child(2){
+width: 80vw;
+}
+&>div>p{
+margin:20px 0;
+}
+
 `

@@ -7,6 +7,7 @@ export function Routes() {
         <Switch>
             <Route exact path='/'><HomePage/></Route>
             <Route path='/movie/:id'><MovieDetail/></Route>
+            <Route><h3>Page Not Found 404</h3></Route>
         </Switch>
 
     </>

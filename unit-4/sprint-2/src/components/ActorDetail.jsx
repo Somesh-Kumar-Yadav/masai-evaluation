@@ -2,7 +2,7 @@ import React from "react"
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import { CompleteDetail } from "../styled-compoents/Styled-Components";
-export function MovieDetail() {
+export function ActorDetail() {
     const param = useParams();
     const data = useSelector((state) => state.movies);
     console.log(param.id);
@@ -25,7 +25,6 @@ export function MovieDetail() {
                         <p><strong>Description : </strong>{e.description}</p>
                         <p><strong>Director : </strong>{e.director}</p>
                         <p><strong>Writer : </strong>{e.writer}</p>
-
                         <p><strong>Cast : </strong><br/>{e.cast.map((et) => {
                             return <span>{ et}<br/> </span>
                         })}</p>
