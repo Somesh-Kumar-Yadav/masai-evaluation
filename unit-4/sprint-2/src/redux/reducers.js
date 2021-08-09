@@ -1,4 +1,7 @@
 import {
+	GET_ACTORS_DATA_FAILURE,
+	GET_ACTORS_DATA_REQUEST,
+	GET_ACTORS_DATA_SUCCESS,
 	GET_MOVIES_DATA_FAILURE,
 	GET_MOVIES_DATA_REQUEST,
 	GET_MOVIES_DATA_SUCCESS,
@@ -23,6 +26,20 @@ export const reducers = (state = initState, { type, payload }) => {
 			return {
 				...state,
 				movies: [],
+			};
+		case GET_ACTORS_DATA_REQUEST:
+			return {
+				...state,
+			};
+		case GET_ACTORS_DATA_SUCCESS:
+			return {
+				...state,
+				actors: payload,
+			};
+		case GET_ACTORS_DATA_FAILURE:
+			return {
+				...state,
+				actors: [],
 			};
 		default:
 			return {

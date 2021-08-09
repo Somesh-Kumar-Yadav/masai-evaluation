@@ -2,14 +2,15 @@ import React from "react"
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { getMoviesData } from "../redux/actions";
+import { getActorsData, getMoviesData } from "../redux/actions";
 import { Card, Container, Detail, Movies, Nav, Show } from "../styled-compoents/Styled-Components"
 export function HomePage() {
     const [search, setSearch] = React.useState("");
     const [movie, setMovie] = React.useState([]);
     const dispatch = useDispatch();
     React.useEffect(() => {
-     dispatch(getMoviesData());   
+        dispatch(getMoviesData());
+        dispatch(getActorsData());
     },[dispatch])
     let data = useSelector((state) => state.movies);
     console.log(data);
@@ -46,7 +47,7 @@ export function HomePage() {
                         <p><strong>Description : </strong>{e.description}</p>
 
                         <p><strong>Cast : </strong><br/>{e.cast.map((et) => {
-                            return <span>{ et}<br/> </span>
+                            return <span><Link to={"/actor/" + et}>{ et}</Link><br/> </span>
                         })}</p>
                         </div>
                     </Card>         
@@ -65,7 +66,7 @@ export function HomePage() {
                         <p><strong>Description : </strong>{e.description}</p>
 
                         <p><strong>Cast : </strong><br/>{e.cast.map((et) => {
-                            return <span>{ et}<br/> </span>
+                            return <span><Link to={"/actor/" + et}>{ et}</Link><br/> </span>
                         })}</p>
                         </div>     
                             </Detail>
