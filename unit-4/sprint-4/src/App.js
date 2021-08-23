@@ -7,7 +7,7 @@ function App() {
 	return (
 		<div className="App">
 			{/* <UsdToInr /> */}
-			<Home color="primary" />
+			<Home />
 		</div>
 	);
 }
