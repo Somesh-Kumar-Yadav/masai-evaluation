@@ -7,6 +7,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import { data } from "../data"
 import { useParams } from "react-router-dom"
 import axios from "axios"
+import useNotification from "../hooks/useNotification"
 const useStyles = makeStyles({
     cont: {
         padding:"0.5rem"
@@ -95,7 +96,7 @@ export default function Form() {
     const {id} = useParams();
     const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [not, setNot] = React.useState(false);
+    const [success,setNotification] = useNotification();
 
   const handleOpen = () => {
     setOpen(true);
@@ -104,25 +105,13 @@ export default function Form() {
   const handleClose = () => {
     setOpen(false);
   };
-    const handleOpenNot = () => {
-        setNot(true);
-        setTimeout(() => {
-            handleCloseNot()
-        },[10000])
-  };
-
-  const handleCloseNot = () => {
-    setNot(false);
-  };
 const handleSubmit = () => {
         const payload = {
             name,
             phone,dob,start,end,apply:data[id-1]
         }
     axios.post("http://localhost:3004/bookings", payload);
-    setTimeout(() => {
-        handleOpenNot();
-    },[1000])
+    setNotification()
     handleClose();
     }
   const body = (
@@ -189,8 +178,7 @@ const handleSubmit = () => {
   {body}
         </Modal>
         <Modal
-  open={not}
-onClose={handleCloseNot}
+  open={success}
   aria-labelledby="simple-modal-title"
   aria-describedby="simple-modal-description"
 >
