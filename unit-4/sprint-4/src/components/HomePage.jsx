@@ -1,5 +1,4 @@
 import React from "react"
-import AppBar from "@material-ui/core/AppBar"
 import  Typography  from "@material-ui/core/Typography"
 import Container from "@material-ui/core/Container"
 import Card from "@material-ui/core/Card"
@@ -20,6 +19,7 @@ const useStyles = makeStyles({
         height: "200px",
         display: "flex",
         justifyContent: "space-between",
+        marginLeft:"10%"
        
     },
     image: {

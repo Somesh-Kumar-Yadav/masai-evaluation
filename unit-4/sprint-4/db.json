@@ -1,0 +1,22 @@
+{
+  "bookings": [
+    {
+      "name": "Somesh Kumar",
+      "phone": "1234567890",
+      "dob": "",
+      "start": "",
+      "end": "",
+      "apply": {
+        "id": 2,
+        "title": "Exotic Lakes - Beach Stay for Fun.",
+        "subtitle": "Stay in Kolkata",
+        "url": "https://picsum.photos/201",
+        "feature": "4 guests , 2 bedroom , 3 beds , 3 bathrooms",
+        "price": "4100INR/night",
+        "review": "32 reviews",
+        "rating": "4.7"
+      },
+      "id": 1
+    }
+  ]
+}
