@@ -2,7 +2,7 @@ import React from "react"
 import  Typography  from "@material-ui/core/Typography"
 import Container from "@material-ui/core/Container"
 import Card from "@material-ui/core/Card"
-import { Button, CardContent, makeStyles, TextField } from "@material-ui/core"
+import { Button, CardContent, makeStyles, Modal, TextField } from "@material-ui/core"
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { data } from "../data"
 import { useParams } from "react-router-dom"
@@ -10,6 +10,10 @@ import axios from "axios"
 const useStyles = makeStyles({
     cont: {
         padding:"0.5rem"
+    },
+    model: {
+        width: "500px",
+        height:"500px"
     },
     container: {
         marginTop:"4rem"
@@ -64,9 +68,18 @@ const useStyles = makeStyles({
         flexDirection: "column",
         width: "50%",
         marginTop: "3rem",
-    }, margin: {
+    },
+    margin: {
         margin :"10px"
-    }
+    },
+    paper: {
+    position: 'absolute',
+    width: "50vw",
+    height:"50vw",
+    border: '2px solid white',
+    color:"white"
+    
+  },
 })
 export default function Form() {
     const [name,setName]=React.useState("")
@@ -76,6 +89,24 @@ export default function Form() {
     const [end,setEnd]=React.useState("")
     const {id} = useParams();
     const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const body = (
+    <div className={classes.paper}>
+      <h2 id="simple-modal-title">Text in a modal</h2>
+      <p id="simple-modal-description">
+        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+      </p>
+    </div>
+  );
     const handleSubmit = () => {
         const payload = {
             name,
@@ -114,9 +145,17 @@ export default function Form() {
             <TextField onChange={(e)=>{setDob(e.target.value)}} required  type="date" defaultValue="1998-05-24" className={classes.margin} id="outlined-basic" label="DOB" variant="outlined" />
             <TextField onChange={(e)=>{setStart(e.target.value)}} required  type="date" defaultValue="2021-08-23" className={classes.margin} id="outlined-basic" label="Start Date" variant="outlined" />
             <TextField onChange={(e)=>{setEnd(e.target.value)}} required  type="date" defaultValue="2021-08-24" className={classes.margin} id="outlined-basic" label="End Date" variant="outlined" />
-            <Button onClick={handleSubmit} className={classes.margin} variant="contained" color="primary">
+            <Button onClick={handleOpen} className={classes.margin} variant="contained" color="primary">
                 BOOK NOW
-            </Button>   
+            </Button>
         </Container>
+        <Modal
+  open={open}
+  onClose={handleClose}
+  aria-labelledby="simple-modal-title"
+  aria-describedby="simple-modal-description"
+>
+  {body}
+</Modal>
     </>
 } 
