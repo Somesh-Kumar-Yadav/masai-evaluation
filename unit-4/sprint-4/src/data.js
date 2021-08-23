@@ -27,7 +27,7 @@ export const data = [
 		feature: "4 guests , 2 bedroom , 3 beds , 3 bathrooms",
 		price: "2900INR/night",
 		review: "43 reviews",
-		rating: "13",
+		rating: "4.6",
 	},
 	{
 		id: 4,
@@ -37,7 +37,7 @@ export const data = [
 		feature: "4 guests , 2 bedroom , 3 beds , 3 bathrooms",
 		price: "2900INR/night",
 		review: "43 reviews",
-		rating: "13",
+		rating: "3.5",
 	},
 	{
 		id: 5,
@@ -47,7 +47,7 @@ export const data = [
 		feature: "4 guests , 2 bedroom , 3 beds , 3 bathrooms",
 		price: "2900INR/night",
 		review: "43 reviews",
-		rating: "13",
+		rating: "4.0",
 	},
 	{
 		id: 6,
@@ -57,6 +57,6 @@ export const data = [
 		feature: "4 guests , 2 bedroom , 3 beds , 3 bathrooms",
 		price: "2900INR/night",
 		review: "43 reviews",
-		rating: "13",
+		rating: "4.1",
 	},
 ];

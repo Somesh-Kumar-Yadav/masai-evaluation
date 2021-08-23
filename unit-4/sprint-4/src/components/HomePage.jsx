@@ -6,6 +6,7 @@ import Card from "@material-ui/core/Card"
 import { CardContent, makeStyles } from "@material-ui/core"
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import { data } from "../data"
+import { Link } from "react-router-dom"
 const useStyles = makeStyles({
     cont: {
         padding:"0.5rem"
@@ -19,11 +20,12 @@ const useStyles = makeStyles({
         height: "200px",
         display: "flex",
         justifyContent: "space-between",
-        cursor:"pointer"
+       
     },
     image: {
         width: "200px",
-        height: "200px"
+        height: "200px",
+        cursor:"pointer"
     },
     content: {
         display: "flex",
@@ -55,36 +57,33 @@ const useStyles = makeStyles({
         color: "gray",
         position: "absolute",
         bottom: "10px",
-        right:"1rem"
+        
     }
 })
 export default function Home() {
     const classes = useStyles();
-    const handleApply = (id) => {
-        console.log(id);
-    }
+    
+    
     return <>
-        <Container maxWidth="xl" >
-            <AppBar className={classes.cont}>
-                <Typography variant="h4">My Booking.com</Typography>
-            </AppBar>
-        </Container>
+        
         <Container className={classes.container}>
             {
                 data.map((item) => {
-                    return <Card key={item.id} onClick={()=>{handleApply(item.id)}} className={classes.cards}>
-                <img className={classes.image}  src={item.url} alt="pic" />
+                    return <Card key={item.id}  className={classes.cards}>
+                        <Link to={`/apply/${item.id}`}>
+                        <img className={classes.image} src={item.url} alt="pic" />
+                        </Link>
                 <CardContent className={classes.main}>
-                    <Typography variant="p">
+                    <Typography >
                         {item.subtitle}
                     </Typography>
                     <Typography variant="h6">
                         {item.title}
                     </Typography>
-                    <Typography variant="p">
+                    <Typography >
                         {item.feature}
                     </Typography>
-                    <Typography calssName={classes.rating} variant="p">
+                    <Typography className={classes.rating} >
                          {item.rating} ({item.review}) 
                     </Typography>
                 </CardContent>
