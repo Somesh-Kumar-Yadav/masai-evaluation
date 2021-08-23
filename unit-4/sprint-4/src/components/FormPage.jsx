@@ -28,8 +28,7 @@ const useStyles = makeStyles({
     },
     image: {
         width: "200px",
-        height: "200px",
-        cursor:"pointer"
+        height: "200px"
     },
     content: {
         display: "flex",
@@ -75,21 +74,28 @@ const useStyles = makeStyles({
     paper: {
     position: 'absolute',
     width: "50vw",
-    height:"50vw",
+    height: "30vh",
+    marginTop: "35vh",
+    marginLeft: "25vw",
     border: '2px solid white',
-    color:"white"
-    
+    color: "white",
+        borderRadius: "20px",
+        display: "flex",
+    flexDirection: "column",
+        justifyContent: "center",
+    alignItems:"Center"
   },
 })
 export default function Form() {
-    const [name,setName]=React.useState("")
-    const [phone,setPhone]=React.useState("")
-    const [dob,setDob]=React.useState("")
-    const [start,setStart]=React.useState("")
-    const [end,setEnd]=React.useState("")
+    const [name,setName]=React.useState("User")
+    const [phone,setPhone]=React.useState("9087654321")
+    const [dob,setDob]=React.useState("1998-05-24")
+    const [start,setStart]=React.useState("2021-08-23")
+    const [end,setEnd]=React.useState("2021-08-24")
     const {id} = useParams();
     const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [not, setNot] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -98,22 +104,47 @@ export default function Form() {
   const handleClose = () => {
     setOpen(false);
   };
+    const handleOpenNot = () => {
+        setNot(true);
+        setTimeout(() => {
+            handleCloseNot()
+        },[10000])
+  };
 
-  const body = (
-    <div className={classes.paper}>
-      <h2 id="simple-modal-title">Text in a modal</h2>
-      <p id="simple-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </p>
-    </div>
-  );
-    const handleSubmit = () => {
+  const handleCloseNot = () => {
+    setNot(false);
+  };
+const handleSubmit = () => {
         const payload = {
             name,
             phone,dob,start,end,apply:data[id-1]
         }
-        axios.post("http://localhost:3004/bookings",  payload );
+    axios.post("http://localhost:3004/bookings", payload);
+    setTimeout(() => {
+        handleOpenNot();
+    },[1000])
+    handleClose();
     }
+  const body = (
+    <div className={classes.paper}>
+          <Typography variant="h2">Are You Sure ? </Typography>
+          <div>
+              <Button onClick={handleSubmit} className={classes.margin} variant="contained" color="primary">
+                YES
+              </Button>
+              <Button onClick={handleClose} className={classes.margin} variant="contained" color="secondary">
+                NO
+            </Button>
+          </div>
+    </div>
+  );
+  const notBody = (
+    <div className={classes.paper}>
+       <Typography variant="h4">Success</Typography>        
+          <Typography variant="h6">You have successfully applied for {data[id - 1].title} from {start} to {end }</Typography>
+    </div>
+  );
+    
     return <>
         <Container className={classes.container}>
             <Card  className={classes.cards}>       
@@ -140,8 +171,8 @@ export default function Form() {
              </Card>
         </Container>
         <Container className={classes.form}>
-            <TextField onChange={(e)=>{setName(e.target.value)}} required  className={classes.margin} id="outlined-basic" label="Name" variant="outlined" />
-            <TextField onChange={(e)=>{setPhone(e.target.value)}}  required type="number" className={classes.margin} id="outlined-basic" label="Phone Number" variant="outlined" />
+            <TextField value={name} onChange={(e)=>{setName(e.target.value)}} required  className={classes.margin} id="outlined-basic" label="Name" variant="outlined" />
+            <TextField value={phone} onChange={(e)=>{setPhone(e.target.value)}}  required type="number" className={classes.margin} id="outlined-basic" label="Phone Number" variant="outlined" />
             <TextField onChange={(e)=>{setDob(e.target.value)}} required  type="date" defaultValue="1998-05-24" className={classes.margin} id="outlined-basic" label="DOB" variant="outlined" />
             <TextField onChange={(e)=>{setStart(e.target.value)}} required  type="date" defaultValue="2021-08-23" className={classes.margin} id="outlined-basic" label="Start Date" variant="outlined" />
             <TextField onChange={(e)=>{setEnd(e.target.value)}} required  type="date" defaultValue="2021-08-24" className={classes.margin} id="outlined-basic" label="End Date" variant="outlined" />
@@ -156,6 +187,14 @@ export default function Form() {
   aria-describedby="simple-modal-description"
 >
   {body}
+        </Modal>
+        <Modal
+  open={not}
+onClose={handleCloseNot}
+  aria-labelledby="simple-modal-title"
+  aria-describedby="simple-modal-description"
+>
+  {notBody}
 </Modal>
     </>
 } 
