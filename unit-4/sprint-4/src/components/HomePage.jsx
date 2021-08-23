@@ -1,12 +1,11 @@
 import React from "react"
 import AppBar from "@material-ui/core/AppBar"
 import  Typography  from "@material-ui/core/Typography"
-import  Box  from "@material-ui/core/Box"
 import Container from "@material-ui/core/Container"
 import Card from "@material-ui/core/Card"
-import { CardContent, CardMedia, makeStyles } from "@material-ui/core"
+import { CardContent, makeStyles } from "@material-ui/core"
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import {StarIcon} from "@material-ui/icons"
+import { data } from "../data"
 const useStyles = makeStyles({
     cont: {
         padding:"0.5rem"
@@ -61,6 +60,9 @@ const useStyles = makeStyles({
 })
 export default function Home() {
     const classes = useStyles();
+    const handleApply = (id) => {
+        console.log(id);
+    }
     return <>
         <Container maxWidth="xl" >
             <AppBar className={classes.cont}>
@@ -68,42 +70,31 @@ export default function Home() {
             </AppBar>
         </Container>
         <Container className={classes.container}>
-            <Card className={classes.cards}>
-                <img className={classes.image} src="https://picsum.photos/200" alt="pic" />
+            {
+                data.map((item) => {
+                    return <Card key={item.id} onClick={()=>{handleApply(item.id)}} className={classes.cards}>
+                <img className={classes.image}  src={item.url} alt="pic" />
                 <CardContent className={classes.main}>
                     <Typography variant="p">
-                        Farm Stay in Srirangapatna
+                        {item.subtitle}
                     </Typography>
                     <Typography variant="h6">
-                        Rusting Nest - Farm Stay for Cycling weekend.
+                        {item.title}
                     </Typography>
                     <Typography variant="p">
-                        4 guests , 2 bedroom , 3 beds , 3 bathrooms
+                        {item.feature}
                     </Typography>
                     <Typography calssName={classes.rating} variant="p">
-                        <StarIcon></StarIcon> 4.8 (43 reviews) 
+                         {item.rating} ({item.review}) 
                     </Typography>
                 </CardContent>
                 <CardContent className={classes.content}>
                     <FavoriteIcon className={classes.icons} />
-                    <Typography className={classes.bottom} variant="h6">2900INR/night</Typography>
+                    <Typography className={classes.bottom} variant="h6">{item.price}</Typography>
                 </CardContent>
              </Card>
-            <Card className={classes.cards}>
-                <img className={classes.image} src="https://picsum.photos/201" alt="pic"/>
-             </Card>
-            <Card className={classes.cards}>
-                <img className={classes.image} src="https://picsum.photos/202" alt="pic"/>
-             </Card>
-            <Card className={classes.cards}>
-                <img className={classes.image} src="https://picsum.photos/203" alt="pic"/>
-             </Card>
-            <Card className={classes.cards}>
-                <img className={classes.image} src="https://picsum.photos/204" alt="pic"/>
-             </Card>
-            <Card className={classes.cards}>
-                <img src="https://picsum.photos/205" alt="pic"/>
-             </Card>
+                })
+            }
         </Container>
     </>
 }
