@@ -111,7 +111,7 @@ const handleSubmit = () => {
             phone,dob,start,end,apply:data[id-1]
         }
     axios.post("http://localhost:3004/bookings", payload);
-    setNotification()
+    setNotification();
     handleClose();
     }
   const body = (
