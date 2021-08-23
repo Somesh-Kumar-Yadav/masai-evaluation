@@ -1,10 +1,10 @@
 import React from 'react'
 
 const convertToINR = (amount, currency) => {
-    if (currency === "INR") {
-        return (amount / 74.5)+" USD";
+    if (currency === "INR") {   
+        return " USD " +(amount/74.5).toFixed(2);
     } else {
-        return amount * 74.5 + " INR";
+        return " INR "+(amount*74.5).toFixed(2);
     } 
     }
 export function UsdToInr() {
@@ -15,12 +15,14 @@ export function UsdToInr() {
        setText(convertToINR(value, currency));
     }
     return <>
+        <div>
         <input type="number" value={value} onChange={(e) => {setValue(e.target.value)}}/>
         <select value={ currency} onChange={(e)=>{setCurrency(e.target.value)}}>
             <option>INR</option>
             <option>USD</option>
         </select>
         <button onClick={ handleConvert}>{ currency==="INR"?"Convert to USD":"Convert to INR"}</button>
-        <p>{ text}</p>
+        </div>
+        <p>{text}</p>
     </>
 }
