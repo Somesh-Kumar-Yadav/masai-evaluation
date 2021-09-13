@@ -266,7 +266,7 @@ app.get("/max-batch", async (req, res) => {
 
 //instructor who teaches maximum no. of students
 
-app.get("/mentor", async (req, res) => {
+app.get("/max-mentor", async (req, res) => {
 	const students = await Student.find().populate("instructor").lean().exec();
 	const obj = {};
 	students.map((item) => {
