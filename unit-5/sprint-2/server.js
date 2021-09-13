@@ -205,7 +205,7 @@ app.delete("/batchs/:id", async (req, res) => {
 	return res.status(200).json({ batch });
 });
 
-// age above 18
+// students age above 18
 
 app.get("/above-18", async (req, res) => {
 	const students = await Student.find({ age: { $gt: 18 } })
@@ -241,19 +241,51 @@ app.get("/total", async (req, res) => {
 	return res.status(200).json({ total });
 });
 
+// batch with maximum students
 app.get("/max-batch", async (req, res) => {
 	const students = await Student.find().populate("batch").lean().exec();
 	const obj = {};
 	students.map((item) => {
-		if (obj[item.batch.name]) {
+		if (!obj[item.batch.name]) {
 			obj[item.batch.name] = 1;
 		} else {
 			obj[item.batch.name] += 1;
 		}
 	});
+	console.log(obj);
 	let max = 0;
+	let batch = "";
 	for (let key in obj) {
+		if (obj[key] > max) {
+			batch = key;
+			max = obj[key];
+		}
 	}
+	return res.status(200).json({ batch });
+});
+
+//instructor who teaches maximum no. of students
+app.get("/max-instructor", async (req, res) => {
+	const students = await Student.find().populate("instructor").lean().exec();
+	const obj = {};
+	students.map((item) => {
+		item.instructor.map((el) => {
+			if (!obj[el.name]) {
+				obj[el.name] = 1;
+			} else {
+				obj[el.name] += 1;
+			}
+		});
+	});
+	let max = 0;
+	let instructor = "";
+	for (let key in obj) {
+		if (obj[key] > max) {
+			instructor = key;
+			max = obj[key];
+		}
+	}
+	return res.status(200).json({ instructor });
 });
 
 app.listen(2345, async () => {
