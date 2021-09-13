@@ -13,6 +13,23 @@ const studentSchema = new mongoose.Schema(
 		name: { type: String, required: true },
 		gender: { type: String, required: false, default: "Male" },
 		age: { type: Number, required: true },
+		course: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "course",
+			required: true,
+		},
+		batch: {
+			type: mongoose.Schema.Types.ObjectId,
+			ref: "batch",
+			required: true,
+		},
+		instructor: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: "instructor",
+				required: true,
+			},
+		],
 	},
 	{
 		versionKey: false,
@@ -190,9 +207,19 @@ app.delete("/batchs/:id", async (req, res) => {
 
 // age above 18
 
-app.get("/above", async (req, res) => {
-	const students = await Student.find().lean().exec();
-	return res.status({ students });
+app.get("/above-18", async (req, res) => {
+	const students = await Student.find({ age: { $gt: 18 } })
+		.lean()
+		.exec();
+	return res.status(200).json({ students });
+});
+
+//full stack development course
+app.get("/full-stack-web-development-course", async (req, res) => {
+	const students = await Student.find({ course: "full stack web development" })
+		.lean()
+		.exec();
+	return res.status(200).json({ students });
 });
 
 app.listen(2345, async () => {
