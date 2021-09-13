@@ -67,5 +67,6 @@ app.post("/students", async (req, res) => {
 });
 
 app.listen(2345, () => {
+	await connect();
 	console.log("connect to port 2345");
 });
