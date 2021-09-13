@@ -78,7 +78,7 @@ const Batch = mongoose.model("batch", batchSchema);
 // For students
 
 app.get("/students", async (req, res) => {
-	const students = await Student.find().populate("instructor").lean().exec();
+	const students = await Student.find().populate().lean().exec();
 	return res.status(200).json({ students });
 });
 
@@ -265,7 +265,8 @@ app.get("/max-batch", async (req, res) => {
 });
 
 //instructor who teaches maximum no. of students
-app.get("/max-instructor", async (req, res) => {
+
+app.get("/mentor", async (req, res) => {
 	const students = await Student.find().populate("instructor").lean().exec();
 	const obj = {};
 	students.map((item) => {
@@ -277,6 +278,7 @@ app.get("/max-instructor", async (req, res) => {
 			}
 		});
 	});
+	console.log(obj);
 	let max = 0;
 	let instructor = "";
 	for (let key in obj) {
