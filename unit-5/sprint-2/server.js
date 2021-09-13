@@ -157,6 +157,44 @@ app.delete("/instructors/:id", async (req, res) => {
 	return res.status(200).json({ instructor });
 });
 
+// for batch
+
+app.get("/batchs", async (req, res) => {
+	const batchs = await Batch.find().lean().exec();
+	return res.status(200).json({ batchs });
+});
+
+app.post("/batchs", async (req, res) => {
+	const batchs = await Batch.create(req.body);
+	return res.status(201).json({ batchs });
+});
+
+app.get("/batchs/:id", async (req, res) => {
+	const batch = await Batch.findById(req.params.id).lean().exec();
+	return res.status(200).json({ batch });
+});
+
+app.patch("/batchs/:id", async (req, res) => {
+	const batch = await Batch.findByIdAndUpdate(req.params.id, req.body, {
+		new: true,
+	})
+		.lean()
+		.exec();
+	return res.status(200).json({ batch });
+});
+
+app.delete("/batchs/:id", async (req, res) => {
+	const batch = await Batch.findByIdAndDelete(req.params.id).lean().exec();
+	return res.status(200).json({ batch });
+});
+
+// age above 18
+
+app.get("/above", async (req, res) => {
+	const students = await Student.find().lean().exec();
+	return res.status({ students });
+});
+
 app.listen(2345, async () => {
 	await connect();
 	console.log("connect to port 2345");
