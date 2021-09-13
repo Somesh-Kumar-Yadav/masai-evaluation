@@ -216,10 +216,44 @@ app.get("/above-18", async (req, res) => {
 
 //full stack development course
 app.get("/full-stack-web-development-course", async (req, res) => {
-	const students = await Student.find({ course: "full stack web development" })
-		.lean()
-		.exec();
-	return res.status(200).json({ students });
+	const students = await Student.find().populate("course").lean().exec();
+	const total = students.filter((item) => {
+		return (item.course.name = "full stack web developer");
+	});
+	return res.status(200).json({ total });
+});
+
+//male students number
+app.get("/male", async (req, res) => {
+	const total = await Student.find({ gender: "Male" }).count().lean().exec();
+	return res.status(200).json({ total });
+});
+
+//female students number
+app.get("/female", async (req, res) => {
+	const total = await Student.find({ gender: "Female" }).count().lean().exec();
+	return res.status(200).json({ total });
+});
+
+// total students number
+app.get("/total", async (req, res) => {
+	const total = await Student.find().count().lean().exec();
+	return res.status(200).json({ total });
+});
+
+app.get("/max-batch", async (req, res) => {
+	const students = await Student.find().populate("batch").lean().exec();
+	const obj = {};
+	students.map((item) => {
+		if (obj[item.batch.name]) {
+			obj[item.batch.name] = 1;
+		} else {
+			obj[item.batch.name] += 1;
+		}
+	});
+	let max = 0;
+	for (let key in obj) {
+	}
 });
 
 app.listen(2345, async () => {
