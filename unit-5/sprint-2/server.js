@@ -78,7 +78,7 @@ const Batch = mongoose.model("batch", batchSchema);
 // For students
 
 app.get("/students", async (req, res) => {
-	const students = await Student.find().lean().exec();
+	const students = await Student.find().populate("instructor").lean().exec();
 	return res.status(200).json({ students });
 });
 
