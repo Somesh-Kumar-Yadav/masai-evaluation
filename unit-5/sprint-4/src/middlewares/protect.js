@@ -1,4 +1,4 @@
-const jwt = "jsonwebtoken";
+const jwt = require("jsonwebtoken");
 const verifyToken = (token) => {
 	return new Promise((resolve, reject) => {
 		jwt.verify(token, "Somesh", (err, user) => {
@@ -9,6 +9,7 @@ const verifyToken = (token) => {
 };
 const protect = async function (req, res, next) {
 	const bearerToken = req.headers?.authorization;
+
 	if (!bearerToken || !bearerToken.startsWith("Bearer ")) {
 		return res.status(400).send({
 			status: "failed",
@@ -19,12 +20,14 @@ const protect = async function (req, res, next) {
 	let user;
 	try {
 		user = await verifyToken(token);
+		req.user = user;
+		next();
 	} catch (e) {
 		return res.status(400).send({
 			status: "failed",
 			message: "Something wrong in protect",
 		});
 	}
-	req.user = user;
-	next();
 };
+
+module.exports = protect;

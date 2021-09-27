@@ -2,6 +2,10 @@ const express = require("express");
 
 const jwt = require("jsonwebtoken");
 
+const authorise = require("../middlewares/authorise");
+
+const protect = require("../middlewares/protect");
+
 const User = require("../models/user.model");
 
 const router = express.Router();
@@ -40,6 +44,10 @@ router.post("/", upload.single("profile_photo_url"), async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
+	const users = await User.find().lean().exec();
+	return res.status(200).json({ users });
+});
+router.get("/:id", protect, authorise(["admin"]), async (req, res) => {
 	const users = await User.find().lean().exec();
 	return res.status(200).json({ users });
 });
