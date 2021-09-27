@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
 		return res.status(400).json({ status: "failed" });
 	}
 });
-router.delete("/:id", protect, authorise(), async (req, res) => {
+router.delete("/:id", protect, auth(), async (req, res) => {
 	let lecture;
 	try {
 		lecture = await Lecture.findByIdAndDelete(req.params.id);
@@ -37,7 +37,7 @@ router.delete("/:id", protect, authorise(), async (req, res) => {
 		return res.status(400).json({ status: "failed" });
 	}
 });
-router.patch("/:id", protect, authorise(), async (req, res) => {
+router.patch("/:id", protect, auth(), async (req, res) => {
 	let lecture;
 	try {
 		lecture = await Lecture.findByIdAndUpdate(req.params.id, req.body, {
