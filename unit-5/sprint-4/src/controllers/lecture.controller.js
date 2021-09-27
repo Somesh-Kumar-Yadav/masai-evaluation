@@ -10,7 +10,7 @@ const protect = require("../middlewares/protect");
 
 const router = express.Router();
 
-router.post("/", protect, auth, async (req, res) => {
+router.post("/", protect, auth(), async (req, res) => {
 	let lecture;
 	try {
 		lecture = await Lecture.create(req.body);
@@ -28,7 +28,7 @@ router.get("/", async (req, res) => {
 		return res.status(400).json({ status: "failed" });
 	}
 });
-router.delete("/:id", protect, auth, async (req, res) => {
+router.delete("/:id", protect, authorise(), async (req, res) => {
 	let lecture;
 	try {
 		lecture = await Lecture.findByIdAndDelete(req.params.id);
@@ -37,7 +37,7 @@ router.delete("/:id", protect, auth, async (req, res) => {
 		return res.status(400).json({ status: "failed" });
 	}
 });
-router.patch("/:id", protect, auth, async (req, res) => {
+router.patch("/:id", protect, authorise(), async (req, res) => {
 	let lecture;
 	try {
 		lecture = await Lecture.findByIdAndUpdate(req.params.id, req.body, {
@@ -51,7 +51,7 @@ router.patch("/:id", protect, auth, async (req, res) => {
 router.get("/:id", async (req, res) => {
 	let lecture;
 	try {
-		lecture = await Lecture.findById();
+		lecture = await Lecture.findById(req.params.id);
 		return res.status(201).json({ lecture });
 	} catch (e) {
 		return res.status(400).json({ status: "failed" });

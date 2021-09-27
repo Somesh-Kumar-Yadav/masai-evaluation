@@ -1,7 +1,7 @@
-const authorise = (permittedRoles) => {
+const authorise = () => {
 	return function (req, res, next) {
 		const { user } = req.user;
-		const roles = req.roles;
+		const roles = user.roles;
 		if (roles === "admin" || req.user._id === req.body.user._id) {
 			next();
 		} else {
